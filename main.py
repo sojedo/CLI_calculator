@@ -7,46 +7,38 @@ def subtract(a, b):
 def multiply(a, b):
     return a * b
 
-def divide(a, b):
+def division(a, b):
     if b == 0:
-        return "Error: Division by zero!"
+        return "valueError: cannot divid by zero"
     return a / b
 
-def display_menu():
-    print("\n=== CLI Calculator ===")
-    print("1. Add (+)")
-    print("2. Subtract (-)")
-    print("3. Multiply (*)")
-    print("4. Divide (/)")
-    print("5. Exit")
+running = True
+while running:
+    try:
+        a = float(input("Enter first number: "))
+        operator = input("Enter operator (+, -, *, /): ")
+        b = float(input("Enter second number: "))
 
-def main():
-    while True:
-        display_menu()
-        choice = input("\nSelect an option (1-5): ").strip()
+    except ValueError:
+        print("Invalid number")
 
-        if choice == "5":
-            print("\nGoodbye!")
-            break
-
-        if choice in ("1", "2", "3", "4"):
-            try:
-                num1 = float(input("Enter first number: "))
-                num2 = float(input("Enter second number: "))
-            except ValueError:
-                print("Invalid input! Please enter numeric values.")
-                continue
-
-            if choice == "1":
-                print(f"\nResult: {num1} + {num2} = {add(num1, num2)}")
-            elif choice == "2":
-                print(f"\nResult: {num1} - {num2} = {subtract(num1, num2)}")
-            elif choice == "3":
-                print(f"\nResult: {num1} * {num2} = {multiply(num1, num2)}")
-            elif choice == "4":
-                print(f"\nResult: {num1} / {num2} = {divide(num1, num2)}")
+    else:   
+        if operator == "+":
+            print(add(a, b))
+        elif operator == "-":
+            print(subtract(a, b))
+        elif operator == "*":
+            print(multiply(a, b))
+        elif operator == "/":
+            print(division(a, b))
         else:
-            print("Invalid choice! Please select a valid option (1-5).")
+            print("Invalid operator")
+    
+    answer = input("Continue? (yes/no): ").lower()
 
-if __name__ == "__main__":
-    main()
+    while answer != "yes" and answer != "no":
+        print("Invalid answer. Enter yes or no.")
+        answer = input("Continue? (yes/no): ").lower()
+
+    if answer == "no":
+        running = False
